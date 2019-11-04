@@ -22,7 +22,7 @@ def get_next_valid_date(test_date, file_loc, file_prefix):
         else:
             test_date += timedelta(days=1)
 
-    return test_date
+    return valid_date
 
 def get_prev_valid_date(test_date, file_loc, file_prefix):
     valid_date = False
@@ -34,7 +34,7 @@ def get_prev_valid_date(test_date, file_loc, file_prefix):
         else:
             test_date -= timedelta(days=1)
 
-    return test_date
+    return valid_date
 
 def get_trade_times_and_values(d, impact_time, stock_name, csv_name, trade_before, trade_after, trade_data):
     with open(csv_name) as csv_file:
@@ -44,12 +44,12 @@ def get_trade_times_and_values(d, impact_time, stock_name, csv_name, trade_befor
         # begin reading CSV lines
         for row in csv_reader:
             if row[2] == stock_name:
-                    curr_line_time = datetime.strptime(str(d.year) + str(d.month) + str(d.day) + row[0][:6]\
-                    , '%Y%m%d%H%M%S')
+                    curr_line_time = datetime.strptime(str(d.year) + str(d.month).zfill(2) + str(d.day).zfill(2) \
+                    + row[0][:6], '%Y%m%d%H%M%S')
 
                     if trade_data["before"] is False:
                         if curr_line_time >= d:
-                            trade_data["before"] = True
+                            trade_data["before"] = True    
                             if 'time' not in trade_before:
                                 trade_before["time"] = curr_line_time
                                 trade_before["price"] = row[5]
@@ -80,8 +80,8 @@ def get_outofbounds_trade_before(d, stock_name, file_loc, file_prefix, trade_bef
 
         for row in csv_reader:
             if row[2] == stock_name:
-                trade_before["time"] = datetime.strptime(str(d.year) + str(d.month) + str(d.day) + row[0][:6]\
-                , '%Y%m%d%H%M%S')
+                trade_before["time"] = datetime.strptime(str(d.year) + str(d.month).zfill(2) + str(d.day).zfill(2) \
+                + row[0][:6], '%Y%m%d%H%M%S')
                 trade_before["price"] = row[5]
             elif 'time' in trade_before:
                 break
@@ -96,8 +96,8 @@ def get_outofbounds_trade_after(d, stock_name, file_loc, file_prefix, trade_afte
 
         for row in csv_reader:
             if row[2] == stock_name:
-                trade_after["time"] = datetime.strptime(str(d.year) + str(d.month) + str(d.day) + row[0][:6]\
-                , '%Y%m%d%H%M%S')
+                trade_after["time"] = datetime.strptime(str(d.year) + str(d.month).zfill(2) + str(d.day).zfill(2) \
+                + row[0][:6], '%Y%m%d%H%M%S')
                 trade_after["price"] = row[5]
                 break
     return
