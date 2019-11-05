@@ -7,7 +7,7 @@ from si_functions import *
 # default variables
 impact_time = 1 # in hours
 trade_impact = 1 # in percentage 
-stock_name = 'BABA'
+stock_name = 'AMZN'
 file_loc = '/Volumes/Seagate Expansion Drive/Stocks Data'
 file_prefix = '/EQY_US_ALL_TRADE_'
 results_file = './results.txt'
