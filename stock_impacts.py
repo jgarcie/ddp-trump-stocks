@@ -18,7 +18,7 @@ tweet_counter = 1
 res = open(results_file, "w+")
 
 # read tweet datetimes from txt
-f = open("./tweets/test_tweets_large2.txt", "r")
+f = open("./tweets/tweet_times.txt", "r")
 for x in f:
     tweet_times.append(datetime.strptime(x.strip(), '%m/%d/%Y %I:%M:%S %p'))
 f.close()
