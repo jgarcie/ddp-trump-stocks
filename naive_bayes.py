@@ -1,8 +1,8 @@
 import csv
 
-impact_dict = "./ImpactDict.csv"
-nonimpact_dict = "./NonImpactShortDict.csv"
-tweets = "./TestTweets20.csv"
+impact_dict = "./dictionaries/TrueDict.csv"
+nonimpact_dict = "./dictionaries/FalseDict.csv"
+tweets = "./tweets/TestTweet2.csv"
 res = open("./nb_results.txt", "w+")
 
 with open(tweets) as tweets_csv:
@@ -20,8 +20,7 @@ with open(tweets) as tweets_csv:
 
                     for imp_line in impact_reader:
                         if imp_line[0] == word:
-                            print(imp_line[4])
-                            impact_value += float(imp_line[4])
+                            impact_value += float(imp_line[1])
                             break
                     #end of for
                 
@@ -30,13 +29,12 @@ with open(tweets) as tweets_csv:
 
                     for nonimp_line in nonimpact_reader:
                         if nonimp_line[0] == word:
-                            print(nonimp_line[4])
-                            nonimpact_value += float(nonimp_line[4])
+                            nonimpact_value += float(nonimp_line[1])
                             break
                     #end of for
         #end of for
 
-        if impact_value > nonimpact_value:
+        if impact_value < nonimpact_value:
             impacted = True
         else:
             impacted = False
