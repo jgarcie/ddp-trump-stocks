@@ -34,7 +34,7 @@ with open(tweets) as tweets_csv:
                     #end of for
         #end of for
 
-        if impact_value < nonimpact_value:
+        if impact_value > nonimpact_value:
             impacted = True
         else:
             impacted = False
